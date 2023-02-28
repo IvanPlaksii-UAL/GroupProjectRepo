@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMovement();
-        //if(transform.eulerAngles != new Vector3(0,0,0)) RotationReset();
+        if (transform.eulerAngles != new Vector3(0, 0, 0)) RotationReset();
     }
 
     private void PlayerMovement()
@@ -43,10 +43,10 @@ public class PlayerControls : MonoBehaviour
 
     private void RotationReset()
     {
-        if (rB.velocity.x <= 0.2f && transform.eulerAngles != new Vector3(0,0,0))
+        if (rB.velocity.x <= 0.2f)
         {
             rB.velocity = new Vector3(0, 0, 0);
-            rB.AddForce(new Vector3(0, 100, 0));
+            rB.AddForce(new Vector3(0, 50, 0));
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
