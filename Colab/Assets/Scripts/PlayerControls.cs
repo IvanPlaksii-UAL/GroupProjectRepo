@@ -6,13 +6,14 @@ public class PlayerControls : MonoBehaviour
 {
     Rigidbody rB;
     public bool canJump = false;
-    // Start is called before the first frame update
+    private int rotationCD = 70;
+
     void Start()
     {
         rB = GetComponent<Rigidbody>();  
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         Camera.main.transform.position = new Vector3(transform.position.x, 9, -10);
@@ -35,19 +36,32 @@ public class PlayerControls : MonoBehaviour
             rB.AddForce(new Vector3(10, 0, 0));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)/* && canJump == true*/)
-        {
-            rB.AddForce(new Vector3(0, 80, 0));
-        }
+        
     }
 
     private void RotationReset()
     {
-        if (rB.velocity.x <= 0.2f)
+        if (rB.velocity.x <= 0.2f) rotationCD--;
+        else rotationCD = 70;
+
+        if (rotationCD == 0)
         {
             rB.velocity = new Vector3(0, 0, 0);
-            rB.AddForce(new Vector3(0, 50, 0));
+            rB.AddForce(new Vector3(0, 150, 0));
+            canJump = false;
             transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            Debug.Log("Active");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rB.AddForce(new Vector3(0, 200, 0));
+            }
         }
     }
 }
