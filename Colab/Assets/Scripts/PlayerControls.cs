@@ -15,7 +15,7 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Camera.main.transform.position = new Vector3(transform.position.x, 9, -10);
     }
 
     private void FixedUpdate()
@@ -35,19 +35,19 @@ public class PlayerControls : MonoBehaviour
             rB.AddForce(new Vector3(10, 0, 0));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space)/* && canJump == true*/)
         {
             rB.AddForce(new Vector3(0, 80, 0));
         }
     }
 
-    /*private void RotationReset()
+    private void RotationReset()
     {
-        if (rB.velocity.x <= 0.2f)
+        if (rB.velocity.x <= 0.2f && transform.eulerAngles != new Vector3(0,0,0))
         {
             rB.velocity = new Vector3(0, 0, 0);
             rB.AddForce(new Vector3(0, 100, 0));
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-    }*/
+    }
 }
